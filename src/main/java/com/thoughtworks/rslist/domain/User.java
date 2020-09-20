@@ -27,7 +27,7 @@ public class User {
     @Pattern(regexp = "1\\d{10}")
     private String phone;
     @JsonIgnore
-    private int voteNum =10;
+    private int voteNum = 10;
 
     public User(String userName, String gender, int age, String email, String phone) {
         this.userName = userName;
