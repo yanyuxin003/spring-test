@@ -1,6 +1,7 @@
 package com.thoughtworks.rslist.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @NotNull
     @Size(max = 8)
@@ -28,12 +30,4 @@ public class User {
     private String phone;
     @JsonIgnore
     private int voteNum = 10;
-
-    public User(String userName, String gender, int age, String email, String phone) {
-        this.userName = userName;
-        this.gender = gender;
-        this.age = age;
-        this.email = email;
-        this.phone = phone;
-    }
 }

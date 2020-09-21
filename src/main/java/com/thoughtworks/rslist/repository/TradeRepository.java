@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TradeRepository extends CrudRepository<TradeDto,Integer> {
-    List<TradeDto> findAllByRank(int rank);
+    List<TradeDto> findAll();
+    TradeDto findByRank(int rank);
 }

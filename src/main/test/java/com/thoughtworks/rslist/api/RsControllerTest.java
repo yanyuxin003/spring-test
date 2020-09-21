@@ -148,7 +148,6 @@ class RsControllerTest {
 
     @Test
     public void shouldAddRsEventWhenUserExist() throws Exception {
-
         UserDto save = userRepository.save(userDto);
 
         String jsonValue =
@@ -202,19 +201,18 @@ class RsControllerTest {
     }
 
     @Test
-    public void should_buy_rsEvent() throws Exception {
+    public void shouldBuyRankSuccessWhenTheRankHaveNotBuy() throws Exception {
         UserDto save = userRepository.save(userDto);
-        RsEventDto rsEventDto =
-                RsEventDto.builder().keyword("测试").eventName("购买热搜").rank(rsService.getRsEventRank()).user(save).build();
+        RsEventDto rsEventDto = RsEventDto.builder().eventName("event name").keyword("keyword").user(save).rank(10).build();
         rsEventDto = rsEventRepository.save(rsEventDto);
-        Trade trade = new Trade(100, 1);
+        Trade trade = Trade.builder().amount(100).rank(1).build();
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonValue = objectMapper.writeValueAsString(trade);
-        mockMvc.perform(
-                post("/rs/buy/{id}", rsEventDto.getId())
-                        .content(jsonValue)
-                        .contentType(MediaType.APPLICATION_JSON))
+        String jsonTrade = objectMapper.writeValueAsString(trade);
+        mockMvc.perform(post("/rs/buy/{id}", rsEventDto.getId())
+                .content(jsonTrade).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+        RsEventDto rsEventBuyRank = tradeRepository.findByRank(1).getRsEventDto();
+        assertEquals(rsEventDto.getEventName(), rsEventBuyRank.getEventName());
     }
 
 }

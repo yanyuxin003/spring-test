@@ -36,6 +36,7 @@ public class RsController {
     @Autowired
     RsService rsService;
 
+
     @GetMapping("/rs/list")
     public ResponseEntity<List<RsEvent>> getRsEventListBetween(
             @RequestParam(required = false) Integer start, @RequestParam(required = false) Integer end) {

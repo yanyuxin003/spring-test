@@ -42,23 +42,23 @@ class RsServiceTest {
     // given
 
     UserDto userDto =
-        UserDto.builder()
-            .voteNum(5)
-            .phone("18888888888")
-            .gender("female")
-            .email("a@b.com")
-            .age(19)
-            .userName("xiaoli")
-            .id(2)
-            .build();
+            UserDto.builder()
+                    .voteNum(5)
+                    .phone("18888888888")
+                    .gender("female")
+                    .email("a@b.com")
+                    .age(19)
+                    .userName("xiaoli")
+                    .id(2)
+                    .build();
     RsEventDto rsEventDto =
-        RsEventDto.builder()
-            .eventName("event name")
-            .id(1)
-            .keyword("keyword")
-            .voteNum(2)
-            .user(userDto)
-            .build();
+            RsEventDto.builder()
+                    .eventName("event name")
+                    .id(1)
+                    .keyword("keyword")
+                    .voteNum(2)
+                    .user(userDto)
+                    .build();
 
     when(rsEventRepository.findById(anyInt())).thenReturn(Optional.of(rsEventDto));
     when(userRepository.findById(anyInt())).thenReturn(Optional.of(userDto));
@@ -66,13 +66,13 @@ class RsServiceTest {
     rsService.vote(vote, 1);
     // then
     verify(voteRepository)
-        .save(
-            VoteDto.builder()
-                .num(2)
-                .localDateTime(localDateTime)
-                .user(userDto)
-                .rsEvent(rsEventDto)
-                .build());
+            .save(
+                    VoteDto.builder()
+                            .num(2)
+                            .localDateTime(localDateTime)
+                            .user(userDto)
+                            .rsEvent(rsEventDto)
+                            .build());
     verify(userRepository).save(userDto);
     verify(rsEventRepository).save(rsEventDto);
   }
@@ -84,9 +84,9 @@ class RsServiceTest {
     when(userRepository.findById(anyInt())).thenReturn(Optional.empty());
     //when&then
     assertThrows(
-        RuntimeException.class,
-        () -> {
-          rsService.vote(vote, 1);
-        });
+            RuntimeException.class,
+            () -> {
+              rsService.vote(vote, 1);
+            });
   }
 }

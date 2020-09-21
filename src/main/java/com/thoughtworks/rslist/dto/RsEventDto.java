@@ -24,8 +24,11 @@ public class RsEventDto {
     private int rank;
     private int amount;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserDto user;
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "rsEventDto")
-    private List<TradeDto> tradeDtos;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "rsEvent")
+    @JoinColumn(name = "trade_id")
+    private TradeDto trade;
 
 }
